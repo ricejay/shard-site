@@ -9,13 +9,9 @@ app.config.update(
   SESSION_COOKIE_SAMESITE='Lax',
 )
 
-@app.route("/", methods=["GET"])
-def main():
-    accept_header = request.headers.get('Accept', '')
-
-    if 'text/plain' in accept_header:
-        with open("api/loader.lua", 'r') as f:
-            content = f.read()
-        return Response(content, content_type='text/plain')
-
-    return render_template("redirect.html")
+@app.route('/', methods=["GET"])
+def home():
+  filePath = "api/loader.lua"
+  file = open(filePath, 'r')
+  fileRead = file.read()
+  return render_template("main.html", fileRead=fileRead)
