@@ -1,5 +1,5 @@
 local gameIds = {
-    [126884695634066] = "GrowAGarden"
+    [126884695634066] = "https://raw.githubusercontent.com/ricejay/shard/refs/heads/main/main.lua"
 }
 
 local loadScript = gameIds[game.PlaceId]
