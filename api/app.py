@@ -80,7 +80,7 @@ def home():
     HWID = DATA["TotalExecutes"][3]
     ID = DATA["TotalExecutes"][4]
 
-    PROFILE = getHeadshot(PROFILEXID)
+    PROFILE = getHeadshot(PROFILEID)
   
     if EXEC >= 1000:
         EXEC = f"{EXEC // 1000}k"
