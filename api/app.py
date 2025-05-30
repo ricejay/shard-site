@@ -86,7 +86,7 @@ def api_execute():
     except Exception:
         return jsonify({"status": "error", "message": "An error occurred"}), 500
 
-@app.route("api/total-executes", methods=["GET"])
+@app.route("/api/total-executes", methods=["GET"])
 @require_api_key
 def getTotal():
     try:
