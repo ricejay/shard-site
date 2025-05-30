@@ -33,7 +33,7 @@ def require_api_key(f):
     return decorated_function
 
 def getHeadshot(playerId):
-   url = f"https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds={playerId}&size=420x420&format=Png&isCircular=false"
+    url = f"https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds={playerId}&size=420x420&format=Png&isCircular=false"
 
     headers = {
         "Content-Type": "application/json"
