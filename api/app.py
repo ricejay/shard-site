@@ -18,7 +18,7 @@ MongoConnection = MongoClient(
     "mongodb+srv://yvorexe:yvorbaog@yvorsite.krkrg.mongodb.net/?retryWrites=true&w=majority&appName=YvorSite",
     serverSelectionTimeoutMS=5000  # Set timeout to 5 seconds
 )
-Database = MongoConnection["ShardDB"]
+Database = MongoConnection["SharDB"]
 Users = Database["Users"]
 
 API_KEY = "xVn83p9aRzL7q2KfWu4TYjCbGdEX1oAa"
