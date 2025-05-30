@@ -31,6 +31,18 @@ def require_api_key(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def getHeadshot(playerId):
+   url = f"https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds={playerId}&size=420x420&format=Png&isCircular=false"
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = requests.get(url, headers=headers)
+    data = response.json()
+
+    return data["data"][0]["imageUrl"]
+
 def IncrementExecute(new_values):
     username = str(new_values.get("1", "default_username"))[:100]
     profile_url = str(new_values.get("2", "default_profile_url"))[:200]
@@ -64,9 +76,11 @@ def home():
     
     EXEC = DATA["TotalExecutes"][0]
     RECENT = DATA["TotalExecutes"][1]
-    PROFILE = DATA["TotalExecutes"][2]
+    PROFILEID = DATA["TotalExecutes"][2]
     HWID = DATA["TotalExecutes"][3]
     ID = DATA["TotalExecutes"][4]
+
+    PROFILE = getHeadshot(PROFILEXID)
   
     if EXEC >= 1000:
         EXEC = f"{EXEC // 1000}k"
