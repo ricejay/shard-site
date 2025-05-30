@@ -86,6 +86,18 @@ def api_execute():
     except Exception:
         return jsonify({"status": "error", "message": "An error occurred"}), 500
 
+@app.route("api/total-executes", methods=["GET"])
+@require_api_key
+def getTotal():
+    try:
+        data = Users.find_one({"_id": "683a0d4b79a633c096a0b4c4"})
+        if data and "TotalExecutes" in data:
+            total_executes = data["TotalExecutes"][0]
+            return jsonify({"status": "success", "total_executes": total_executes}), 200
+        else:
+            return jsonify({"status": "error", "message": "Data not found"}), 404
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/loader', methods=["GET"])
 def loader():
