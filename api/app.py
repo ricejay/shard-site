@@ -6,6 +6,7 @@ import base64
 import time
 import secrets
 import requests
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "gCKAJoHvT1"
@@ -23,6 +24,7 @@ Database = MongoConnection["SharDB"]
 Users = Database["Users"]
 
 API_KEY = "xVn83p9aRzL7q2KfWu4TYjCbGdEX1oAa"
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1378091799284940851/C_60oNA55AFGqpWLNM0rYm_keaVngj8oX8R7c28rIPbzqlI0kwaBDAy7u3Ff1XwEpOgh"
 
 def require_api_key(f):
     @wraps(f)
@@ -113,6 +115,25 @@ def getTotal():
             return jsonify({"status": "error", "message": "Data not found"}), 404
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/api/send-webhook", methods=["POST"])
+def send_webhook():
+    try:
+        client_key = request.headers.get("X-API-KEY")
+        if client_key != API_KEY:
+            return jsonify({"error": "Unauthorized"}), 403
+
+        payload = request.json
+        if not payload:
+            return jsonify({"error": "Missing JSON body"}), 400
+        
+        headers = {"Content-Type": "application/json"}
+        resp = requests.post(DISCORD_WEBHOOK_URL, json=payload, headers=headers)
+
+        return jsonify({"status": "success", "discord_status": resp.status_code}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/loader', methods=["GET"])
 def loader():
